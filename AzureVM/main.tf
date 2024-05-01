@@ -112,7 +112,7 @@ resource "azurerm_network_interface" "holx_terraform_nic2" {
 
   ip_configuration {
     name                          = "holx_nic2_configuration"
-    subnet_id                     = azurerm_subnet.holx_terraform_subnet2.id
+    subnet_id                     = azurerm_subnet.holx_terraform_subnet1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.holx_terraform_public_ip2.id
   }
