@@ -26,7 +26,7 @@ variable "username" {
 variable "password" {
   type        = string
   description = "The password for the local account that will be created on the new VM."
-  default     = "Password5678!"
+  default     = ""
   sensitive   = true
 }
 
