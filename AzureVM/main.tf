@@ -147,7 +147,7 @@ resource "azurerm_storage_account" "holx_storage_account" {
   location                 = azurerm_resource_group.rg.location
   resource_group_name      = azurerm_resource_group.rg.name
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "GRS"
 }
 
 # Create virtual machine 1 (Linux)
@@ -210,8 +210,24 @@ resource "azurerm_windows_virtual_machine" "holx_terraform_vm2" {
   }
 
   boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.holx_storage_account[1].primary_blob_endpoint #adjust index count to match the number of storage accounts
+    storage_account_uri = azurerm_storage_account.holx_storage_account[0].primary_blob_endpoint #adjust index count to match the number of storage accounts
   }
+}
+
+# Install IIS web server to VM2 (Windows)
+resource "azurerm_virtual_machine_extension" "web_server_install" {
+  name                       = "${var.resource_name_prefix}-${random_pet.rg_name.id}-wsi"
+  virtual_machine_id         = azurerm_windows_virtual_machine.holx_terraform_vm2.id
+  publisher                  = "Microsoft.Compute"
+  type                       = "CustomScriptExtension"
+  type_handler_version       = "1.8"
+  auto_upgrade_minor_version = true
+
+  settings = <<SETTINGS
+    {
+      "commandToExecute": "powershell -ExecutionPolicy Unrestricted Install-WindowsFeature -Name Web-Server -IncludeAllSubFeature -IncludeManagementTools"
+    }
+  SETTINGS
 }
 
 # Configure the filename for storing the private key
