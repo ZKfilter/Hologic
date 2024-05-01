@@ -1,8 +1,8 @@
-Hologic Project : Terraform Templates
+#Hologic Project : Terraform Templates
 
-AzureVM
+##AzureVM
 This folder contains TF configuration files to deploy Linux & Windows virtual machines
 
-AKS
+##AKS
 This folder contains TF configuration files to deploy Azure Kubernetes Cluster and Node Pools.
 
