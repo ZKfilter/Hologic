@@ -1,4 +1,4 @@
-# Hologic Project : Terraform Templates
+# SIEM, SOAR, PAM, PIM Project : Terraform Templates
 
 ## AzureVM
 This folder contains TF configuration files to deploy Linux & Windows virtual machines
